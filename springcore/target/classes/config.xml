@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean name="emp" class="com.soumyadeep.spring.springcore.Employee" p:id="20" p:name="Soumyadeep" />
+
+    <bean name="hospital" class="com.soumyadeep.spring.springcore.list.Hospital">
+        <property name="name">
+            <value>Vidyasagar Hospital</value>
+        </property>
+        <property name="departments">
+            <list>
+                <value>Front Office</value>
+                <value>In Patient</value>
+                <value>Doctor Chamber</value>
+            </list>
+            
+        </property>
+    </bean>
+
+    <bean name="cardealer" class="com.soumyadeep.spring.springcore.set.CarDealer">
+        <property name="name">
+            <value>Hyderabad Dealer</value>
+        </property>
+        <property name="models">
+            <set> 
+                <value>Honda</value>
+                <value>BMW</value>
+                <value>Honda</value>
+            </set>
+        </property>
+    </bean>
+    
+    <bean name="customer" class="com.soumyadeep.spring.springcore.map.Customer" p:id="20">
+        <property name="products">
+            <map>
+               <entry key="100" value="Iphone" />
+                <entry key="200">
+                    <value>Ipad</value>
+                </entry>
+                <entry value="Macbook Pro">
+                    <key>
+                        <value>300</value>
+                    </key>
+                </entry>
+                <entry>
+                   <key>
+                       <value>400</value>
+                   </key>
+                   <value>Macbook AIR</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="countryAndLangs" class="com.soumyadeep.spring.springcore.properties.CountriesAndLanguages">
+        <property name="countryAndLangs">
+            <props>
+                <prop key="USA">English</prop>
+                <prop key="India">Hindi</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean name="scores" class="com.soumyadeep.spring.springcore.reftypes.Scores" p:phy="80" p:chem="70" p:maths="90" />
+
+    <bean name="student" class="com.soumyadeep.spring.springcore.reftypes.Student">
+        <property name="scores" ref="scores" />
+    </bean>
+
+    <bean class="com.soumyadeep.spring.springcore.innerbeans.Employee" name="employee" p:id="123" scope="prototype">
+        <property name="address">
+            <bean class="com.soumyadeep.spring.springcore.innerbeans.Address" p:hno="140" p:street="BC Road" p:city="Kolkata" />
+        </property>
+    </bean>
+
+    <bean name="address" class="com.soumyadeep.spring.springcore.constructorinjection.Address" p:hno="140" p:street="BC Road" p:city="Kolkata" />
+
+    <bean name="employee1" class="com.soumyadeep.spring.springcore.constructorinjection.Employee">
+        <constructor-arg value="123" />
+        <constructor-arg>
+            <ref bean="address" />
+        </constructor-arg>
+    </bean>
+
+    <context:property-placeholder location="com/soumyadeep/spring/springcore/propertyplaceholder/database.properties" />
+
+    <bean class="com.soumyadeep.spring.springcore.propertyplaceholder.MyDAO" name="myDAO">
+        <constructor-arg>
+            <value>$(dbServer)</value>
+        </constructor-arg>
+    </bean>
+
+</beans>
